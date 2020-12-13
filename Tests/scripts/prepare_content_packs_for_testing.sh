@@ -33,6 +33,13 @@ BUCKET_FULL_TARGET_PATH="$GCS_BUILD_BUCKET/$BUILD_BUCKET_PATH"
 GCS_MARKET_BUCKET="marketplace-dist"
 SOURCE_PATH="content"
 
+echo "Deleting testing bucket at: gs://marketplace-dist-dev/wow/content"
+gsutil -m rm -r "gs://marketplace-dist-dev/wow/content"
+echo "Copying master files at: gs://marketplace-dist/content to target path: gs://marketplace-dist-dev/wow/content ..."
+gsutil -m cp -r "gs://marketplace-dist/content" "gs://marketplace-dist-dev/wow/content"
+echo "Done resetting testing bucket"
+exit 1
+
 echo "Copying master files at: gs://$GCS_MARKET_BUCKET/$SOURCE_PATH to target path: gs://$CONTENT_FULL_TARGET_PATH ..."
 gsutil -m cp -r "gs://$GCS_MARKET_BUCKET/$SOURCE_PATH" "gs://$CONTENT_FULL_TARGET_PATH" > "$CIRCLE_ARTIFACTS/logs/Prepare Content Packs For Testing.log" 2>&1
 echo "Finished copying successfully."
