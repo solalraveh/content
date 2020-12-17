@@ -601,8 +601,7 @@ class Pack(object):
 
         return pack_metadata
 
-    @staticmethod
-    def _get_pack_publish_date(user_metadata):
+    def _get_pack_publish_date(self, user_metadata):
         """ Get pack publish date.
 
         Args:
@@ -613,7 +612,7 @@ class Pack(object):
 
         """
         added_pack_metadata = run_command(f'git diff --diff-filter=A --name-only master '
-                                          f'Packs/{str(Pack.name)}/{Pack.USER_METADATA}', exit_on_error=False)
+                                          f'Packs/{self.name}/{Pack.USER_METADATA}', exit_on_error=False)
         if added_pack_metadata:
             return datetime.utcnow().strftime(Metadata.DATE_FORMAT)
 
